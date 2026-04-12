@@ -1,0 +1,347 @@
+:root {
+  --bg: #111315;
+  --bg-elevated: rgba(25, 28, 31, 0.78);
+  --bg-panel: rgba(32, 35, 39, 0.54);
+  --bg-hover: rgba(255, 255, 255, 0.05);
+  --bg-active: rgba(166, 200, 255, 0.11);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.14);
+  --text: #e6e9ed;
+  --text-muted: rgba(230, 233, 237, 0.62);
+  --accent: #9fb9db;
+  --shadow: rgba(0, 0, 0, 0.18);
+  color: var(--text);
+  background:
+    linear-gradient(180deg, rgba(18, 21, 23, 0.94), rgba(18, 21, 23, 0.98)),
+    radial-gradient(circle at top left, rgba(118, 150, 176, 0.1), transparent 34%),
+    linear-gradient(180deg, #0f1113 0%, #111315 100%);
+  font-family:
+    "IBM Plex Sans",
+    "Segoe UI",
+    sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: dark;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body[data-theme="light"] {
+  --bg: #e8ebee;
+  --bg-elevated: rgba(242, 244, 246, 0.72);
+  --bg-panel: rgba(250, 251, 252, 0.48);
+  --bg-hover: rgba(22, 26, 31, 0.06);
+  --bg-active: rgba(79, 112, 151, 0.12);
+  --border: rgba(22, 26, 31, 0.1);
+  --border-strong: rgba(22, 26, 31, 0.16);
+  --text: #1b1f24;
+  --text-muted: rgba(27, 31, 36, 0.62);
+  --accent: #49698b;
+  --shadow: rgba(40, 50, 60, 0.06);
+  background:
+    linear-gradient(180deg, rgba(234, 237, 240, 0.92), rgba(232, 235, 238, 0.96)),
+    radial-gradient(circle at top left, rgba(118, 150, 176, 0.08), transparent 32%),
+    linear-gradient(180deg, #edf0f2 0%, #e6eaed 100%);
+  color: var(--text);
+  color-scheme: light;
+}
+
+html,
+body {
+  margin: 0;
+  min-width: 1080px;
+  min-height: 100vh;
+}
+
+body {
+  background-color: var(--bg);
+}
+
+button {
+  font: inherit;
+}
+
+#app {
+  height: 100vh;
+}
+
+.app-shell {
+  display: grid;
+  grid-template-columns: 284px 1fr;
+  height: 100vh;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  gap: 16px;
+  padding: 18px 14px 14px;
+  border-right: 1px solid var(--border);
+  background: var(--bg-elevated);
+  backdrop-filter: blur(18px) saturate(120%);
+  box-shadow: inset -1px 0 0 rgba(255, 255, 255, 0.02);
+}
+
+.workspace {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-width: 0;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 14px 18px 12px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.01);
+  backdrop-filter: blur(14px) saturate(110%);
+}
+
+.sidebar-header,
+.header-main,
+.content-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.sidebar-brand,
+.header-title {
+  min-width: 0;
+}
+
+.sidebar-header h1,
+.header h2,
+.empty-document h3 {
+  margin: 0;
+  font-family:
+    "IBM Plex Sans",
+    "Segoe UI",
+    sans-serif;
+  font-size: 0.98rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.header h2 {
+  font-size: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.eyebrow {
+  margin: 0 0 4px;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.toolbar-button,
+.tab,
+.tree-file {
+  border: 1px solid transparent;
+  border-radius: 2px;
+  color: var(--text);
+  cursor: pointer;
+  background: transparent;
+  transition:
+    background-color 120ms ease,
+    border-color 120ms ease,
+    color 120ms ease;
+}
+
+.toolbar-button {
+  padding: 7px 10px;
+  color: var(--text-muted);
+}
+
+.toolbar-button:hover,
+.tab:hover,
+.tree-file:hover {
+  background: var(--bg-hover);
+}
+
+.toolbar-button-strong {
+  color: var(--text);
+  border-color: var(--border);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.toolbar-button-strong:hover {
+  border-color: var(--border-strong);
+}
+
+.sidebar-path,
+.tabs-empty,
+.empty-state,
+.empty-document p,
+.content-meta {
+  color: var(--text-muted);
+}
+
+.sidebar-path {
+  padding: 10px 0 14px;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.84rem;
+  word-break: break-word;
+}
+
+.sidebar-tree {
+  flex: 1;
+  overflow: auto;
+  padding-right: 2px;
+}
+
+.tree {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 12px;
+}
+
+.tree li {
+  margin-top: 2px;
+}
+
+.tree-label {
+  display: block;
+  width: 100%;
+  padding: 6px 8px;
+  text-align: left;
+  box-sizing: border-box;
+}
+
+.tree-directory {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.tree-file {
+  position: relative;
+}
+
+.tree-file.selected {
+  color: var(--text);
+  background: var(--bg-active);
+}
+
+.tree-file.selected::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 1px;
+  background: var(--accent);
+}
+
+.header-actions,
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+
+.tabs {
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+
+.tab {
+  position: relative;
+  padding: 7px 10px 8px;
+  color: var(--text-muted);
+}
+
+.tab.active {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.tab.active::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  background: var(--accent);
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 18px;
+}
+
+.content-meta {
+  margin-bottom: 14px;
+  font-size: 0.82rem;
+}
+
+.document-content,
+.empty-document {
+  flex: 1;
+  min-height: 0;
+  margin: 0;
+  padding: 18px 20px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  box-shadow: 0 12px 40px -30px var(--shadow);
+  backdrop-filter: blur(18px) saturate(115%);
+}
+
+.document-content {
+  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family:
+    "IBM Plex Mono",
+    "SFMono-Regular",
+    monospace;
+  font-size: 0.92rem;
+  line-height: 1.7;
+}
+
+.document-content.editing {
+  border-color: var(--border-strong);
+}
+
+.empty-document {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 760px;
+}
+
+@media (max-width: 960px) {
+  html,
+  body {
+    min-width: 0;
+  }
+
+  .app-shell {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+
+  .sidebar {
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .sidebar-header,
+  .header-main,
+  .content-meta {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
