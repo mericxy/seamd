@@ -1,5 +1,6 @@
 <script lang="ts">
   import { listDirectory, openMarkdownFile, selectFolder } from "./lib/tauri";
+  import { renderMarkdown } from "./lib/markdown";
   import type { DocumentTab, FileNode, Theme, ViewMode } from "./lib/types";
 
   let currentFolder: string | null = null;
@@ -10,10 +11,12 @@
   let viewMode: ViewMode = "read";
   let fileTitle = "No file selected";
   let fileContent = "";
+  let renderedContent = "";
   let statusMessage = "Choose a folder to start reading local Markdown files.";
   let isLoading = false;
 
   $: document.body.dataset.theme = theme;
+  $: renderedContent = renderMarkdown(fileContent, selectedFile);
 
   async function handleSelectFolder() {
     const folder = await selectFolder();
@@ -235,9 +238,15 @@
       </div>
 
       {#if selectedFile}
-        <pre class:editing={viewMode === "edit"} class="document-content">{fileContent}</pre>
+        {#if viewMode === "read"}
+          <article class="document-rendered document-surface">
+            {@html renderedContent}
+          </article>
+        {:else}
+          <pre class:editing={viewMode === "edit"} class="document-content document-surface">{fileContent}</pre>
+        {/if}
       {:else}
-        <section class="empty-document">
+        <section class="empty-document document-surface">
           <h3>Read-first workspace</h3>
           <p>
             Open a local folder, pick a Markdown file, and Seamd will show its raw content here for

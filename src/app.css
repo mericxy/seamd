@@ -52,7 +52,8 @@ html,
 body {
   margin: 0;
   min-width: 1080px;
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
 }
 
 body {
@@ -65,18 +66,21 @@ button {
 
 #app {
   height: 100vh;
+  overflow: hidden;
 }
 
 .app-shell {
   display: grid;
   grid-template-columns: 284px 1fr;
   height: 100vh;
+  overflow: hidden;
 }
 
 .sidebar {
   display: flex;
   flex-direction: column;
   min-width: 0;
+  min-height: 0;
   gap: 16px;
   padding: 18px 14px 14px;
   border-right: 1px solid var(--border);
@@ -89,6 +93,8 @@ button {
   display: grid;
   grid-template-rows: auto 1fr;
   min-width: 0;
+  min-height: 0;
+  overflow: hidden;
 }
 
 .header {
@@ -326,6 +332,7 @@ button {
   flex-direction: column;
   min-height: 0;
   padding: 18px;
+  overflow: hidden;
 }
 
 .content-meta {
@@ -333,8 +340,7 @@ button {
   font-size: 0.82rem;
 }
 
-.document-content,
-.empty-document {
+.document-surface {
   flex: 1;
   min-height: 0;
   margin: 0;
@@ -360,6 +366,133 @@ button {
 
 .document-content.editing {
   border-color: var(--border-strong);
+}
+
+.document-rendered {
+  overflow: auto;
+  font-size: 0.97rem;
+  line-height: 1.75;
+}
+
+.document-rendered > :first-child {
+  margin-top: 0;
+}
+
+.document-rendered > :last-child {
+  margin-bottom: 0;
+}
+
+.document-rendered h1,
+.document-rendered h2,
+.document-rendered h3,
+.document-rendered h4,
+.document-rendered h5,
+.document-rendered h6 {
+  margin: 1.7em 0 0.7em;
+  font-family:
+    "IBM Plex Sans",
+    "Segoe UI",
+    sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.document-rendered h1 {
+  font-size: 1.9rem;
+}
+
+.document-rendered h2 {
+  font-size: 1.5rem;
+}
+
+.document-rendered h3 {
+  font-size: 1.22rem;
+}
+
+.document-rendered p,
+.document-rendered ul,
+.document-rendered ol,
+.document-rendered table,
+.document-rendered pre {
+  margin: 0 0 1rem;
+}
+
+.document-rendered ul,
+.document-rendered ol {
+  padding-left: 1.35rem;
+}
+
+.document-rendered li + li {
+  margin-top: 0.3rem;
+}
+
+.document-rendered a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.document-rendered a:hover {
+  text-decoration: underline;
+}
+
+.document-rendered code {
+  padding: 0.1rem 0.32rem;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.03);
+  font-family:
+    "IBM Plex Mono",
+    "SFMono-Regular",
+    monospace;
+  font-size: 0.88em;
+}
+
+.document-rendered pre {
+  overflow: auto;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--border);
+  background: rgba(12, 14, 16, 0.5);
+}
+
+.document-rendered pre code {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
+.document-rendered table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.document-rendered th,
+.document-rendered td {
+  padding: 0.72rem 0.8rem;
+  border: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.document-rendered th {
+  font-weight: 600;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.document-rendered td {
+  color: var(--text-muted);
+}
+
+.document-rendered img,
+.document-rendered .md-inline-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1rem 0;
+  border: 1px solid var(--border);
 }
 
 .empty-document {
