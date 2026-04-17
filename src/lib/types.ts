@@ -7,6 +7,7 @@ export interface FileNode {
   relativePath: string;
   isDir: boolean;
   children?: FileNode[];
+  expanded?: boolean;
 }
 
 export interface DocumentTab {
@@ -19,4 +20,3 @@ export interface OpenFileResult {
   title: string;
   content: string;
 }
-

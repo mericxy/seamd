@@ -26,7 +26,7 @@
     statusMessage = "Loading folder contents...";
 
     try {
-      const tree = await listDirectory(folder);
+      const tree = collapseTree(await listDirectory(folder));
       currentFolder = folder;
       fileTree = tree;
       selectedFile = null;
@@ -86,6 +86,23 @@
     viewMode = viewMode === "read" ? "edit" : "read";
   }
 
+  function collapseTree(nodes: FileNode[]): FileNode[] {
+    return nodes.map((node) => ({
+      ...node,
+      expanded: false,
+      children: node.children ? collapseTree(node.children) : undefined
+    }));
+  }
+
+  function toggleDirectory(node: FileNode) {
+    node.expanded = !node.expanded;
+    fileTree = [...fileTree];
+  }
+
+  function isDirectoryExpanded(node: FileNode) {
+    return node.expanded === true;
+  }
+
   function findNodeByPath(nodes: FileNode[], path: string): FileNode | null {
     for (const node of nodes) {
       if (node.path === path) {
@@ -118,8 +135,17 @@
     {#each nodes as node (node.path)}
       <li>
         {#if node.isDir}
-          <div class="tree-label tree-directory">{node.name}</div>
-          {#if node.children && node.children.length > 0}
+          <button
+            aria-expanded={isDirectoryExpanded(node)}
+            class:expanded={isDirectoryExpanded(node)}
+            class="tree-label tree-directory"
+            on:click={() => toggleDirectory(node)}
+            type="button"
+          >
+            <span class="tree-caret" aria-hidden="true"></span>
+            <span class="tree-name">{node.name}</span>
+          </button>
+          {#if isDirectoryExpanded(node) && node.children && node.children.length > 0}
             {@render tree(node.children)}
           {/if}
         {:else}
@@ -129,7 +155,8 @@
             on:click={() => handleOpenFile(node)}
             type="button"
           >
-            {node.name}
+            <span class="tree-file-spacer" aria-hidden="true"></span>
+            <span class="tree-name">{node.name}</span>
           </button>
         {/if}
       </li>
